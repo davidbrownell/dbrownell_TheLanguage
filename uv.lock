@@ -12,6 +12,27 @@ wheels = [
 ]
 
 [[package]]
+name = "antlr-denter"
+version = "1.3.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "antlr4-python3-runtime" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ac/a7/03d3f5b0726cd2d21e539f10dfb2c7f10235bea6754f7624865d18ad5257/antlr-denter-1.3.1.tar.gz", hash = "sha256:c9083677f34c7ae001d54e5b0a83b125de87cfc822394ce230c7b80f44c05bcf", size = 4887, upload-time = "2020-04-22T21:59:55.794Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0b/7d/90b9b27e51099deff45ae426157332c8d29448c62df0036efaa28ef3c27b/antlr_denter-1.3.1-py3-none-any.whl", hash = "sha256:15a32dc39225deb5b407968fc9a37b78d6096c5b921891f7b4edf5386e938e1a", size = 5063, upload-time = "2020-04-22T21:59:39.117Z" },
+]
+
+[[package]]
+name = "antlr4-python3-runtime"
+version = "4.13.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/33/5f/2cdf6f7aca3b20d3f316e9f505292e1f256a32089bd702034c29ebde6242/antlr4_python3_runtime-4.13.2.tar.gz", hash = "sha256:909b647e1d2fc2b70180ac586df3933e38919c85f98ccc656a96cd3f25ef3916", size = 117467, upload-time = "2024-08-03T19:00:12.757Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/89/03/a851e84fcbb85214dc637b6378121ef9a0dd61b4c65264675d8a5c9b1ae7/antlr4_python3_runtime-4.13.2-py3-none-any.whl", hash = "sha256:fe3835eb8d33daece0e799090eda89719dbccee7aa39ef94eed3818cafa5a7e8", size = 144462, upload-time = "2024-08-03T19:00:11.134Z" },
+]
+
+[[package]]
 name = "attrs"
 version = "26.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -34,6 +55,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e1/e3/d19e36453feaae5f154789cfc2aef47753d9fbfa55c6324fff6fa11a84fa/autogitsemver-0.9.14.tar.gz", hash = "sha256:84799c0b6befc6cc6972ffe193c5ca9d4c455043e29ba782c9f2ac3c0c553aa2", size = 14601, upload-time = "2026-06-05T13:39:23.637Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/98/10/56627ac8010c1110d2186012946bbf6be0d01b3a09315dfea4a67fede822/autogitsemver-0.9.14-py3-none-any.whl", hash = "sha256:2d02ad26d1c33508b172f77a770043b55f69e81a9f883ce1eaff5b1320e8424a", size = 16475, upload-time = "2026-06-05T13:39:24.582Z" },
+]
+
+[[package]]
+name = "beartype"
+version = "0.22.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/94/1009e248bbfbab11397abca7193bea6626806be9a327d399810d523a07cb/beartype-0.22.9.tar.gz", hash = "sha256:8f82b54aa723a2848a56008d18875f91c1db02c32ef6a62319a002e3e25a975f", size = 1608866, upload-time = "2025-12-13T06:50:30.72Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/71/cc/18245721fa7747065ab478316c7fea7c74777d07f37ae60db2e84f8172e8/beartype-0.22.9-py3-none-any.whl", hash = "sha256:d16c9bbc61ea14637596c5f6fbff2ee99cbe3573e46a716401734ef50c3060c2", size = 1333658, upload-time = "2025-12-13T06:50:28.266Z" },
 ]
 
 [[package]]
@@ -178,7 +208,7 @@ wheels = [
 
 [[package]]
 name = "dbrownell-common"
-version = "0.16.6"
+version = "0.16.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "inflect" },
@@ -186,15 +216,33 @@ dependencies = [
     { name = "typer" },
     { name = "typer-config" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b7/6f/87731de430db9c5bc204dfbd34edd07f78490ed10c06c36d4f127556f104/dbrownell_common-0.16.6.tar.gz", hash = "sha256:d1e6e6634496ffe20e7fd5a2380da05c27705c17d3738b24d6f50f9cbae7c097", size = 36331, upload-time = "2026-06-05T20:30:18.335Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d2/ba/8afca7ab45731cfadb368304f5d3fdf213fb6eae96962e5d966f2bb8b41e/dbrownell_common-0.16.8.tar.gz", hash = "sha256:c53176da6be2b6e5870e2a0dc4a2bbfe814fba44cad8a41640784481b19e9ce9", size = 36328, upload-time = "2026-06-18T17:59:06.349Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/42/b05ccd8e57e2e7cf5c4238d27fcbb0f00856839d9b9ae572f308652ffcd6/dbrownell_common-0.16.6-py3-none-any.whl", hash = "sha256:cd8b204a21c521f3a6ae91483aa6f08385488187d07fc0a51afd494280d3acdd", size = 42732, upload-time = "2026-06-05T20:30:19.383Z" },
+    { url = "https://files.pythonhosted.org/packages/03/5f/33e6654fce17e632c9fb68f1a49b331420432e95ca9c5770309579ae077d/dbrownell_common-0.16.8-py3-none-any.whl", hash = "sha256:c001c245f7c09f205ab595f594ccecf82d5582b4a21a7fa3e6df073c3c7ef596", size = 42729, upload-time = "2026-06-18T17:59:05.297Z" },
+]
+
+[[package]]
+name = "dbrownell-parserlib"
+version = "0.8.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "antlr-denter" },
+    { name = "antlr4-python3-runtime" },
+    { name = "dbrownell-common" },
+    { name = "plum" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0c/f2/4b741d1a96603e9cdebbefbecf3f1f30e8060a4d37718bcc6cd3563fd16c/dbrownell_parserlib-0.8.4.tar.gz", hash = "sha256:990a66dfc3ccf2cbf35b2fdece49c21d5d6a56f1c98b7d11a347aef23f297209", size = 1990402, upload-time = "2026-07-02T12:18:15.289Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/86/e7/cfbf32df62dd224eec43606add9fc551790346e6d0e87f6f364a7168b00e/dbrownell_parserlib-0.8.4-py3-none-any.whl", hash = "sha256:129d61c6e3537c3125267e2e063ed783a7844e1eb925913b5f06550899cea792", size = 1993789, upload-time = "2026-07-02T12:18:13.845Z" },
 ]
 
 [[package]]
 name = "dbrownell-thelanguage"
 version = "0.0.0"
 source = { editable = "." }
+dependencies = [
+    { name = "dbrownell-parserlib" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -208,6 +256,7 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "dbrownell-parserlib", specifier = ">=0.8.4" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -384,6 +433,20 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f9/e2/3e91f31a7d2b083fe6ef3fa267035b518369d9511ffab804f839851d2779/pluggy-1.6.0.tar.gz", hash = "sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3", size = 69412, upload-time = "2025-05-15T12:30:07.975Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", hash = "sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746", size = 20538, upload-time = "2025-05-15T12:30:06.134Z" },
+]
+
+[[package]]
+name = "plum"
+version = "2.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "beartype" },
+    { name = "rich" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7a/18/5f07cdf83147a739dcadfb6c1e17c26f4ffe0ca41a3c96dbfa20a7a74812/plum-2.9.0.tar.gz", hash = "sha256:c3f7c0294d8194bc54e5948d86ecd74ae9869f0f6326472cb24063a1befe400d", size = 244490, upload-time = "2026-04-28T08:39:25.203Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f7/d5/90283068ef65329bc103924aa76c566f5716635303be3a60cb237e12926c/plum-2.9.0-py3-none-any.whl", hash = "sha256:92838bb6df686471c4c63692a3a7f05eed147b127fd10f57e49133d223d0e419", size = 45251, upload-time = "2026-04-28T08:39:23.666Z" },
 ]
 
 [[package]]
