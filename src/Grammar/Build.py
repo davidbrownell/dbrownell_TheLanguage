@@ -5,7 +5,7 @@ from typing import Annotated
 import typer
 
 from dbrownell_Common.Streams.DoneManager import DoneManager, Flags as DoneManagerFlags
-from dbrownell_ParserLib import BuildAntlrGrammar
+from dbrownell_ParserLib.antlr.build_antlr_grammar import BuildAntlrGrammar
 from typer.core import TyperGroup
 
 
