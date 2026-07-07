@@ -60,8 +60,8 @@ RBRACK:                                     ']' {self._nested_pair_ctr -= 1};
 LBRACE:                                     '{' {self._nested_pair_ctr += 1};
 RBRACE:                                     '}' {self._nested_pair_ctr -= 1};
 
-TRIPLE_DOUBLE_QUOTE_STRING:                 UNTERMINATED_TRIPLE_DOUBLE_QUOTE_STRING NEWLINE '"""' ;
-UNTERMINATED_TRIPLE_DOUBLE_QUOTE_STRING:    '"""' NEWLINE .*?;
+TRIPLE_DOUBLE_QUOTE_STRING:                 UNTERMINATED_TRIPLE_DOUBLE_QUOTE_STRING '"""';
+UNTERMINATED_TRIPLE_DOUBLE_QUOTE_STRING:    '"""' .*?;
 
 IDENTIFIER:                                 ('_'* [a-zA-Z][a-zA-Z0-9_]*) | '_';
 
@@ -74,10 +74,11 @@ IDENTIFIER:                                 ('_'* [a-zA-Z][a-zA-Z0-9_]*) | '_';
 // ----------------------------------------------------------------------
 // |  Common functionality
 identifier:                                 IDENTIFIER;
-docstring:                                  TRIPLE_DOUBLE_QUOTE_STRING;
+triple_double_quote_string:                 TRIPLE_DOUBLE_QUOTE_STRING;
 
 type_decorator:                             ':' identifier;
 
+// BugBug: Support variadic parameters
 parameter:                                  (identifier type_decorator) | '*';
 parameter_list:                             LPAREN (parameter ',')* RPAREN;
 
@@ -89,7 +90,9 @@ scope_end__:                                DEDENT;
 entry_point__:                              NEWLINE* statement__* EOF;
 
 statement__:                                (
+                                                docstring_statement |
                                                 func_statement
-                                            ) NEWLINE+;
+                                            );
 
-func_statement:                             'func' identifier parameter_list type_decorator scope_start__ (docstring | docstring? statement__+) scope_end__;
+docstring_statement:                        triple_double_quote_string NEWLINE;
+func_statement:                             'func' identifier parameter_list type_decorator scope_start__ statement__+ scope_end__;
