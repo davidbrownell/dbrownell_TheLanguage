@@ -173,6 +173,8 @@ class _Visitor(AntlrVisitorMixin, TheLanguageVisitor):
 
             child_index += 2
 
+            # BugBug: Ensure that the identifier is a variable identifier
+
             parameters.append(
                 Parameter(
                     region,
@@ -214,6 +216,8 @@ class _Visitor(AntlrVisitorMixin, TheLanguageVisitor):
         assert all(isinstance(child, Statement) for child in children[3:]), children[3:]
 
         # BugBug: Look for special function names
+        # BugBug: Ensure identifier is a function name
+        # BugBug: Extract docstring (if any), ensure that it is the first statement, and pass it as to FuncStatement.
 
         self._stack.append(
             FuncStatement(
