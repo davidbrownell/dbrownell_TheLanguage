@@ -223,7 +223,7 @@ wheels = [
 
 [[package]]
 name = "dbrownell-parserlib"
-version = "0.10.2"
+version = "0.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "antlr-denter" },
@@ -231,9 +231,9 @@ dependencies = [
     { name = "dbrownell-common" },
     { name = "plum" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/de/54/0e10661bfb58311a3d54a65e78229be1f4e43560fb5451991e958ef928d5/dbrownell_parserlib-0.10.2.tar.gz", hash = "sha256:43b5f9436f26ceacd3a56374d63bd3793ab598d1d68c0a4121bdba2ebc0d36fc", size = 1991880, upload-time = "2026-07-05T18:30:26.903Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/cb/f0984e115797ade159923087e4493458f589535e7e3a3e23c5b427b18b42/dbrownell_parserlib-0.13.0.tar.gz", hash = "sha256:6bc40b172c67218e703d756fb6aca772c1c535a1690585edf95c0e2f39b45fbb", size = 1992751, upload-time = "2026-07-12T16:18:13.762Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0a/3f/dbd902aca7ee6866608dcb6ebdd52ae9a91957e0af5fddf7f42754360b18/dbrownell_parserlib-0.10.2-py3-none-any.whl", hash = "sha256:8673c50e6faf2f89c861f7942cd6850e4cfa7d2779a79b6e5a74c865e4e50951", size = 1995497, upload-time = "2026-07-05T18:30:24.289Z" },
+    { url = "https://files.pythonhosted.org/packages/91/e3/1c54ed4388f1bbdef0309b5080d3ad4a88c4a20d12486084821b3ffeb9e1/dbrownell_parserlib-0.13.0-py3-none-any.whl", hash = "sha256:b864e45dc772a11ebcec7f7c4d084734caa7ebe651f3c958a4accc1e6216e42c", size = 1997093, upload-time = "2026-07-12T16:18:12.008Z" },
 ]
 
 [[package]]

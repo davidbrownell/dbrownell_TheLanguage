@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from enum import auto, Enum
 
-from dbrownell_ParserLib.terminal_expression import TerminalExpression
+from dbrownell_ParserLib.terminal_element import TerminalElement
 
 
 # ----------------------------------------------------------------------
@@ -15,7 +15,7 @@ class IdentifierType(Enum):
 
 # ----------------------------------------------------------------------
 @dataclass(eq=False)
-class Identifier(TerminalExpression[str]):
+class Identifier(TerminalElement[str]):
     """An identifier in TheLanguage."""
 
     the_type: IdentifierType

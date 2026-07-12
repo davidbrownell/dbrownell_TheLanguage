@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from typing import override
 
-from dbrownell_ParserLib.terminal_expression import TerminalExpression  # noqa: TC002
+from dbrownell_ParserLib.terminal_element import TerminalElement  # noqa: TC002
 
 from dbrownell_TheLanguage.Entities.Statements.Statement import Statement
 
@@ -12,7 +12,7 @@ from dbrownell_TheLanguage.Entities.Statements.Statement import Statement
 class DocstringStatement(Statement):
     """A docstring statement."""
 
-    value: TerminalExpression[str]
+    value: TerminalElement[str]
 
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------

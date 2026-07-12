@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from enum import auto, Enum
 from typing import cast, override
 
-from dbrownell_ParserLib.expression import Expression as ParserLibExpression
+from dbrownell_ParserLib.element import Element
 
 from dbrownell_TheLanguage.Entities.Common.Identifier import Identifier
 from dbrownell_TheLanguage.Entities.Common.Type import Type
@@ -20,7 +20,7 @@ class ParameterType(Enum):
 
 # ----------------------------------------------------------------------
 @dataclass(eq=False)
-class Parameter(ParserLibExpression):
+class Parameter(Element):
     """A parameter in TheLanguage."""
 
     name: Identifier
@@ -29,14 +29,14 @@ class Parameter(ParserLibExpression):
     is_variadic: bool = field(kw_only=True, default=False)
 
     # ----------------------------------------------------------------------
-    def _GenerateAcceptDetails(self) -> ParserLibExpression._GenerateAcceptDetailsResultType:
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsResultType:
         yield "name", self.name
         yield "the_type", self.the_type
 
 
 # ----------------------------------------------------------------------
 @dataclass(eq=False)
-class Parameters(ParserLibExpression):
+class Parameters(Element):
     """A collection of parameters."""
 
     parameters: list[Parameter]
@@ -45,5 +45,5 @@ class Parameters(ParserLibExpression):
     # ----------------------------------------------------------------------
     # ----------------------------------------------------------------------
     @override
-    def _GenerateAcceptDetails(self) -> ParserLibExpression._GenerateAcceptDetailsResultType:
-        yield "parameters", cast(list[ParserLibExpression], self.parameters)
+    def _GenerateAcceptDetails(self) -> Element._GenerateAcceptDetailsResultType:
+        yield "parameters", cast(list[Element], self.parameters)

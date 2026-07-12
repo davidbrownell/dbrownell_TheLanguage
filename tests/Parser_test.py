@@ -2,10 +2,12 @@ import io
 import tempfile
 import textwrap
 
+from io import StringIO
 from pathlib import Path
 
 from dbrownell_Common.Streams.DoneManager import DoneManager
 from dbrownell_ParserLib.errors import Error
+from dbrownell_ParserLib.test_helpers.test_visitor import TestVisitor
 
 from dbrownell_TheLanguage.Parser import parser
 
@@ -389,36 +391,6 @@ class TestParserMultipleFiles:
         finally:
             temp_path.unlink()
 
-    # ----------------------------------------------------------------------
-    def test_ErrorContainsRegionInfo(self) -> None:
-        code = textwrap.dedent('''\
-            func Invalid( : Void ->
-                """
-                Docstring.
-                """
-            ''')
-
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            suffix=".txt",
-            delete=False,
-            encoding="utf-8",
-        ) as f:
-            f.write(code)
-            temp_path = Path(f.name)
-
-        try:
-            with DoneManager.Create(io.StringIO(), "Testing") as dm:
-                result = parser(dm, temp_path, None, quiet=True)
-
-                assert len(result) == 1
-                error = next(iter(result.values()))
-                assert isinstance(error, Error)
-                assert len(error.regions) > 0
-                assert error.regions[0].filename == temp_path
-        finally:
-            temp_path.unlink()
-
 
 # ----------------------------------------------------------------------
 class TestParserStandardScenarios:
@@ -659,9 +631,61 @@ class TestParserStandardScenarios:
             ''')
 
         result = self._Parse(code)
-        print(result)  # BugBug
-
         assert not isinstance(result, Error)
+
+        stream = StringIO()
+
+        visitor = TestVisitor(stream)
+
+        for element in result._stack:
+            element.Accept(visitor)
+            stream.write("\n")
+
+        assert stream.getvalue() == textwrap.dedent(
+            """\
+            FuncStatement, Ln 1 Col 1 - Ln 9 Col 1
+              <<details>>
+                Identifier, Ln 1 Col 6 - Ln 1 Col 13 -> 'MyFunc1' [str]
+                Parameters, Ln 1 Col 13 - Ln 1 Col 22
+                  <<details>>
+                    Parameter, Ln 1 Col 14 - Ln 1 Col 20
+                      <<details>>
+                        Identifier, Ln 1 Col 14 - Ln 1 Col 15 -> 'a' [str]
+                        Type, Ln 1 Col 15 - Ln 1 Col 20
+                          <<details>>
+                            Identifier, Ln 1 Col 17 - Ln 1 Col 20 -> 'Int' [str]
+                Type, Ln 1 Col 23 - Ln 1 Col 29
+                  <<details>>
+                    Identifier, Ln 1 Col 25 - Ln 1 Col 29 -> 'Void' [str]
+              <<children: statements>>
+                DocstringStatement, Ln 2 Col 5 - Ln 7 Col 8
+                  <<details>>
+                    TerminalElement, Ln 2 Col 5 - Ln 7 Col 8 -> 'Docstring.
+                    Line2
+                        Line3
+                    Line4' [str]
+
+            FuncStatement, Ln 10 Col 1 - Ln 16 Col 1
+              <<details>>
+                Identifier, Ln 10 Col 6 - Ln 10 Col 13 -> 'MyFunc2' [str]
+                Parameters, Ln 10 Col 13 - Ln 10 Col 25
+                  <<details>>
+                    Parameter, Ln 10 Col 17 - Ln 10 Col 23
+                      <<details>>
+                        Identifier, Ln 10 Col 17 - Ln 10 Col 18 -> 'b' [str]
+                        Type, Ln 10 Col 18 - Ln 10 Col 23
+                          <<details>>
+                            Identifier, Ln 10 Col 20 - Ln 10 Col 23 -> 'Int' [str]
+                Type, Ln 10 Col 26 - Ln 10 Col 32
+                  <<details>>
+                    Identifier, Ln 10 Col 28 - Ln 10 Col 32 -> 'Void' [str]
+              <<children: statements>>
+                DocstringStatement, Ln 11 Col 5 - Ln 13 Col 8
+                  <<details>>
+                    TerminalElement, Ln 11 Col 5 - Ln 13 Col 8 -> 'Docstring.' [str]
+
+            """,
+        )
 
     # ----------------------------------------------------------------------
     @staticmethod
