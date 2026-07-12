@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import auto, Enum
 from typing import override
 
-from dbrownell_ParserLib.terminal_expression import TerminalExpression  # noqa: TC002
+from dbrownell_ParserLib.terminal_element import TerminalElement  # noqa: TC002
 
 from dbrownell_TheLanguage.Entities.Common.Parameters import Parameters
 from dbrownell_TheLanguage.Entities.Common.Type import Type
@@ -26,7 +26,7 @@ class SpecialFunctionType(Enum):
 class FuncStatement(Statement):
     """A function."""
 
-    name: TerminalExpression[str | SpecialFunctionType]
+    name: TerminalElement[str | SpecialFunctionType]
     parameters: Parameters
     return_type: Type | None
     statements: list[Statement]
@@ -39,7 +39,6 @@ class FuncStatement(Statement):
         yield "name", self.name
         yield "parameters", self.parameters
         yield "return_type", self.return_type
-        yield "docstring", self.docstring
 
     # ----------------------------------------------------------------------
     @override

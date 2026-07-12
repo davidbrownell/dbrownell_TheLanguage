@@ -3,20 +3,18 @@ from typing import cast, TYPE_CHECKING
 
 import antlr4
 
-from dbrownell_ParserLib.antlr.antlr_visitor_mixins import (
-    AntlrVisitorMixinBase,
-    SignificantWhitespaceAntlrVisitorMixin,
-)
+from dbrownell_ParserLib.antlr.antlr_visitor_mixin import AntlrVisitorMixin
 from dbrownell_ParserLib.antlr.antlr_parser import CreateAntlrParser
 from dbrownell_ParserLib.errors import CreateErrorType
 from dbrownell_ParserLib.multiline_strings import ExtractMultilineString
 from dbrownell_ParserLib.region import Region
-from dbrownell_ParserLib.terminal_expression import TerminalExpression
+from dbrownell_ParserLib.terminal_element import TerminalElement
 
 from dbrownell_TheLanguage.Entities.Common.Identifier import Identifier, IdentifierType
 from dbrownell_TheLanguage.Entities.Common.Parameters import Parameter, ParameterType, Parameters
 from dbrownell_TheLanguage.Entities.Common.Type import Type
 from dbrownell_TheLanguage.Entities.Statements.DocstringStatement import DocstringStatement
+from dbrownell_TheLanguage.Entities.Statements.FuncStatement import FuncStatement
 from dbrownell_TheLanguage.Entities.Statements.Statement import Statement
 from dbrownell_TheLanguage.Parser.GeneratedCode.TheLanguageLexer import TheLanguageLexer
 from dbrownell_TheLanguage.Parser.GeneratedCode.TheLanguageParser import TheLanguageParser
@@ -43,29 +41,7 @@ DuplicateKeywordParameterError = CreateErrorType(
 # |  Private Types
 # |
 # ----------------------------------------------------------------------
-class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
-    # ----------------------------------------------------------------------
-    def __init__(
-        self,
-        filename: Path,
-        on_progress_func: Callable[[int], None],
-        *,
-        is_included_file: bool,
-    ) -> None:
-        AntlrVisitorMixinBase.__init__(
-            self,
-            filename,
-            on_progress_func,
-            is_included_file=is_included_file,
-        )
-
-        SignificantWhitespaceAntlrVisitorMixin.__init__(
-            self,
-            TheLanguageParser.DEDENT,
-            TheLanguageParser.NEWLINE,
-            "newLine",
-        )
-
+class _Visitor(AntlrVisitorMixin, TheLanguageVisitor):
     # ----------------------------------------------------------------------
     def visitIdentifier(
         self,
@@ -112,7 +88,7 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
 
         # TODO: Docstrings are only valid under certain conditions
 
-        self._stack.append(TerminalExpression[str](region, content))
+        self._stack.append(TerminalElement[str](region, content))
 
     # ----------------------------------------------------------------------
     def visitType_decorator(
@@ -168,6 +144,7 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
             child = children[child_index]
             child_index += 1
 
+            # Are we looking at the keyword delimiter?
             if isinstance(child, tuple):
                 assert len(child) == 2, child
                 assert isinstance(child[0], str) and child[0] == "*", child[0]
@@ -176,6 +153,8 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
 
                 if keyword_delimiter_region is not None:
                     raise DuplicateKeywordParameterError.CreateAsException(region, keyword_delimiter_region)
+
+                # BugBug: It's an error if there aren't any parameters following this value
 
                 keyword_delimiter_region = region
                 continue
@@ -199,9 +178,11 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
                     region,
                     identifier,
                     the_type,
-                    ParameterType.Keyword
-                    if keyword_delimiter_region is not None
-                    else ParameterType.Positional,
+                    (
+                        ParameterType.Keyword
+                        if keyword_delimiter_region is not None
+                        else ParameterType.Positional
+                    ),
                     is_variadic=False,  # TODO: Support variadic parameters
                 ),
             )
@@ -215,7 +196,7 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
     ) -> None:
         children = self.GetChildren(ctx)
         assert len(children) == 1, children
-        assert isinstance(children[0], TerminalExpression), children[0]
+        assert isinstance(children[0], TerminalElement), children[0]
 
         self._stack.append(DocstringStatement(self.CreateRegion(ctx), children[0]))
 
@@ -230,9 +211,19 @@ class _Visitor(SignificantWhitespaceAntlrVisitorMixin, TheLanguageVisitor):
         assert isinstance(children[0], Identifier), children[0]
         assert isinstance(children[1], Parameters), children[1]
         assert isinstance(children[2], Type), children[2]
-        assert isinstance(children[3], Statement), children[3]
+        assert all(isinstance(child, Statement) for child in children[3:]), children[3:]
 
-        BugBug = 10
+        # BugBug: Look for special function names
+
+        self._stack.append(
+            FuncStatement(
+                self.CreateRegion(ctx),
+                children[0],
+                children[1],
+                children[2],
+                cast(list[Statement], children[3:]),
+            ),
+        )
 
 
 # ----------------------------------------------------------------------

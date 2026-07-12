@@ -1,10 +1,10 @@
 # noqa: D100
 from dataclasses import dataclass
 
-from dbrownell_ParserLib.expression import Expression as ParserLibExpression
+from dbrownell_ParserLib.element import Element
 
 
 # ----------------------------------------------------------------------
 @dataclass(eq=False)
-class Statement(ParserLibExpression):
+class Statement(Element):
     """Abstract base class for all statements in TheLanguage."""
