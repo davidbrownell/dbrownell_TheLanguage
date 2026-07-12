@@ -1,13 +1,12 @@
 # noqa: D100
-from dbrownell_TheLanguage.Entities.Common.Identifier import Identifier
 from dataclasses import dataclass, field
 from enum import auto, Enum
 from typing import cast, override
 
 from dbrownell_ParserLib.element import Element
 
-from dbrownell_TheLanguage.Entities.Common.Identifier import Identifier
-from dbrownell_TheLanguage.Entities.Common.Type import Type
+from dbrownell_TheLanguage.Elements.Common.Identifier import Identifier
+from dbrownell_TheLanguage.Elements.Common.Type import Type
 
 
 # ----------------------------------------------------------------------
