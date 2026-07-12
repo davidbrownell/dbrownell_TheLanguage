@@ -79,14 +79,17 @@ triple_double_quote_string:                 TRIPLE_DOUBLE_QUOTE_STRING;
 type_decorator:                             ':' identifier;
 
 // BugBug: Support variadic parameters
+// BugBug: Add support for perfect forwarding parameters
 parameter:                                  (identifier type_decorator) | '*';
+
+// BugBug: Trailing comma should not be required
 parameter_list:                             LPAREN (parameter ',')* RPAREN;
 
 scope_start__:                              '->' INDENT;
 scope_end__:                                DEDENT;
 
 // ----------------------------------------------------------------------
-// |  Rules
+// |  Statements
 entry_point__:                              NEWLINE* statement__* EOF;
 
 statement__:                                (
