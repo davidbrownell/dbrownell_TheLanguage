@@ -4,7 +4,7 @@ from typing import override
 
 from dbrownell_ParserLib.terminal_element import TerminalElement  # noqa: TC002
 
-from dbrownell_TheLanguage.Entities.Statements.Statement import Statement
+from dbrownell_TheLanguage.Elements.Statements.Statement import Statement
 
 
 # ----------------------------------------------------------------------

@@ -10,12 +10,12 @@ from dbrownell_ParserLib.multiline_strings import ExtractMultilineString
 from dbrownell_ParserLib.region import Region
 from dbrownell_ParserLib.terminal_element import TerminalElement
 
-from dbrownell_TheLanguage.Entities.Common.Identifier import Identifier, IdentifierType
-from dbrownell_TheLanguage.Entities.Common.Parameters import Parameter, ParameterType, Parameters
-from dbrownell_TheLanguage.Entities.Common.Type import Type
-from dbrownell_TheLanguage.Entities.Statements.DocstringStatement import DocstringStatement
-from dbrownell_TheLanguage.Entities.Statements.FuncStatement import FuncStatement
-from dbrownell_TheLanguage.Entities.Statements.Statement import Statement
+from dbrownell_TheLanguage.Elements.Common.Identifier import Identifier, IdentifierType
+from dbrownell_TheLanguage.Elements.Common.Parameters import Parameter, ParameterType, Parameters
+from dbrownell_TheLanguage.Elements.Common.Type import Type
+from dbrownell_TheLanguage.Elements.Statements.DocstringStatement import DocstringStatement
+from dbrownell_TheLanguage.Elements.Statements.FuncStatement import FuncStatement
+from dbrownell_TheLanguage.Elements.Statements.Statement import Statement
 from dbrownell_TheLanguage.Parser.GeneratedCode.TheLanguageLexer import TheLanguageLexer
 from dbrownell_TheLanguage.Parser.GeneratedCode.TheLanguageParser import TheLanguageParser
 from dbrownell_TheLanguage.Parser.GeneratedCode.TheLanguageVisitor import TheLanguageVisitor
